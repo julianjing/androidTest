@@ -29,6 +29,7 @@ public class LMCalendarView extends LinearLayout {
 	private DatesAdapter adapter;
 	private TextView current_year;
 	private int current_day;
+	private GridView body_grid;
 	
 	public LMCalendarView(Context context) {
         super(context);
@@ -66,17 +67,9 @@ public class LMCalendarView extends LinearLayout {
         });
         
         //init month grid
-        GridView body_grid = (GridView) findViewById(R.id.body_grid);
+        body_grid = (GridView) findViewById(R.id.body_grid);
         adapter = new DatesAdapter(LMCalendarView.this.getContext());
-        body_grid.setAdapter(adapter);
-        body_grid.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-            	Day day = (Day) adapter.getItem(position);
-                Toast.makeText(LMCalendarView.this.getContext(), 
-                		"day:" + day.getDay() + "-"+day.getMonth(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        
+        body_grid.setAdapter(adapter); 
         
         //inin fields
         month = Calendar.getInstance();
@@ -86,6 +79,10 @@ public class LMCalendarView extends LinearLayout {
         //refresh view
         updateCalendarMonth(current_month);
        
+    }
+    
+    public GridView getGrid() {
+    	return body_grid;
     }
     
     public void updateCalendarMonth(int month_num) {
