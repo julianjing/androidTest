@@ -26,9 +26,13 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="Life Cycle Test" />
         <activity
+            android:name=".CalendarTest"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="CalendarTest" />
+        <activity
             android:name=".CalendarViewTest"
             android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="Life Cycle Test" />
+            android:label="CalendarViewTest" />
     </application>
 
 </manifest>

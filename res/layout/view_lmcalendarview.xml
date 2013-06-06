@@ -1,0 +1,123 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <com.android.test.views.LMCalendarView
+        android:id="@+id/lmcalendarview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/next_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="next" />
+
+            <TextView
+                android:id="@+id/current_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="2012" />
+
+            <Button
+                android:id="@+id/pre_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="pre" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/weekheader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:text="MON"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:text="TUE"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:text="WEN"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:text="THU"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:text="FRI"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:text="SAT"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:text="SUN"
+                android:gravity="center"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <GridView
+                android:id="@+id/body_grid"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:columnWidth="50dp"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:numColumns="7"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp" />
+        </LinearLayout>
+    </com.android.test.views.LMCalendarView>
+
+</merge>
