@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class AndroidBasicsStarter extends ListActivity {
-	String tests[] = { "LifeCycleTest", "CalendarTest" ,"CalendarViewTest" ,"FragmentCalendarTest" };
+	String tests[] = { "LifeCycleTest", "CalendarTest" ,"CalendarViewTest" ,"FragmentCalendarTest","PageViewerTest" };
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

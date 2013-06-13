@@ -37,6 +37,11 @@
             android:name=".FragmentCalendarTest"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="CalendarViewTest" />
+        <activity
+            android:name=".PageViewerTest"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="CalendarViewTest" />
+        
     </application>
 
 </manifest>
