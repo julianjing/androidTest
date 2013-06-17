@@ -20,7 +20,7 @@ public class PageViewerTest extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
     	final ActionBar actionBar = getActionBar();
 
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); 
         setContentView(R.layout.pageviewertest);
         
         final RadioGroup tickmarks = (RadioGroup) findViewById(R.id.tickmarks);

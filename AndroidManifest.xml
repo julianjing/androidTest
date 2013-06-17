@@ -41,6 +41,10 @@
             android:name=".PageViewerTest"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="CalendarViewTest" />
+        <activity
+            android:name=".AppLauncherTest"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="CalendarViewTest" />
         
     </application>
 

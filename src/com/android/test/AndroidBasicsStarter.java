@@ -8,7 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class AndroidBasicsStarter extends ListActivity {
-	String tests[] = { "LifeCycleTest", "CalendarTest" ,"CalendarViewTest" ,"FragmentCalendarTest","PageViewerTest" };
+	String tests[] = { "LifeCycleTest", "CalendarTest", "CalendarViewTest",
+			"FragmentCalendarTest", "PageViewerTest", "AppLauncherTest" };
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,8 +23,7 @@ public class AndroidBasicsStarter extends ListActivity {
 		super.onListItemClick(list, view, position, id);
 		String testName = tests[position];
 		try {
-			Class clazz = Class
-					.forName("com.android.test." + testName);
+			Class clazz = Class.forName("com.android.test." + testName);
 			Intent intent = new Intent(this, clazz);
 			startActivity(intent);
 		} catch (ClassNotFoundException e) {
