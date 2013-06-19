@@ -28,24 +28,27 @@
         <activity
             android:name=".CalendarTest"
             android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="CalendarTest" />
+            android:label="Calendar Test" />
         <activity
             android:name=".CalendarViewTest"
             android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="CalendarViewTest" />
+            android:label="Calendar View Test" />
         <activity
             android:name=".FragmentCalendarTest"
             android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="CalendarViewTest" />
+            android:label="Fragment Calendar Test" />
         <activity
             android:name=".PageViewerTest"
             android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="CalendarViewTest" />
+            android:label="PageViewer Test" />
         <activity
             android:name=".AppLauncherTest"
             android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="CalendarViewTest" />
-        
+            android:label="App Launcher Test" />     
+        <activity
+            android:name=".AppLauncherPageViewerTest"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="App Launcher PageViewer Test" />
     </application>
 
 </manifest>
