@@ -1,116 +1,135 @@
 package com.android.test;
 
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RadioGroup;
-import android.widget.TextView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 
-import com.android.test.adapters.DemoCollectionPagerAdapter;
 import com.android.test.fragments.AppLauncherFragment;
+import com.android.test.model.ApplicationInfo;
+import com.android.test.views.AutoPageViewer;
 
 public class AppLauncherPageViewerTest extends FragmentActivity {
-    protected static final String TAG = AppLauncherPageViewerTest.class.getName();
-    AppLauncherPagerAdapter appLauncherPagerAdapter;
-    ViewPager mViewPager;
+	protected static final String TAG = AppLauncherPageViewerTest.class
+			.getName();
+	AppLauncherPagerAdapter appLauncherPagerAdapter;
+	private ArrayList<ApplicationInfo> mApplications;
+	private static final int PAGENUM = 20;
 
-    public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState); 
-        setContentView(R.layout.pageviewertest);
-        
-        final RadioGroup tickmarks = (RadioGroup) findViewById(R.id.tickmarks);
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.applauncherpageviewertest);
+		loadApplications(true);
 
-        // ViewPager and its adapters use support library
-        // fragments, so use getSupportFragmentManager.
-        appLauncherPagerAdapter =
-                new AppLauncherPagerAdapter(
-                        getSupportFragmentManager(),3);
-        
-    
-        mViewPager.setAdapter(appLauncherPagerAdapter);
-        mViewPager.setOnPageChangeListener(
-                new ViewPager.SimpleOnPageChangeListener() {
-                    @Override
-                    public void onPageSelected(int position) {
-                        // When swiping between pages, select the
-                        // corresponding tab.
-                        Log.d(TAG, "tickmarks check:"+position);         
-                        tickmarks.check(getTickmarksId(position));
-                    }
-
-					private int getTickmarksId(int position) {
-						switch(position) {
-							case 0:
-								return R.id.radio0;
-							case 1:
-								return R.id.radio1;
-							case 2: 
-								return R.id.radio2;
-							case 3: 
-								return R.id.radio3;
-						}
-						return -1;
-					}
-                });
-
-
-        // Create a tab listener that is called when the user changes tabs.
-        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+		SearchView searchapps = (SearchView) findViewById(R.id.searchapps);
+		searchapps.setOnQueryTextListener(new OnQueryTextListener() {
 
 			@Override
-			public void onTabReselected(Tab arg0,
-					android.app.FragmentTransaction arg1) {
+			public boolean onQueryTextChange(String newText) {
 				// TODO Auto-generated method stub
-				
+				return false;
 			}
 
 			@Override
-			public void onTabSelected(Tab arg0,
-					android.app.FragmentTransaction arg1) {
-				 mViewPager.setCurrentItem(arg0.getPosition());
-			}
-
-			@Override
-			public void onTabUnselected(Tab arg0,
-					android.app.FragmentTransaction arg1) {
+			public boolean onQueryTextSubmit(String query) {
 				// TODO Auto-generated method stub
-				
+				return false;
 			}
-        };
+		});
 
+		AutoPageViewer appspageviewer = (AutoPageViewer) findViewById(R.id.autopageviewer);
+		appLauncherPagerAdapter = new AppLauncherPagerAdapter(
+				getSupportFragmentManager(), mApplications, PAGENUM);
+		appspageviewer.setAdapter(appLauncherPagerAdapter);
+
+	}
+	
+	private void loadApplications(boolean isLaunching) {
+        if (isLaunching && mApplications != null) {
+            return;
+        }
+
+        PackageManager manager = getPackageManager();
+
+        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+        final List<ResolveInfo> apps = manager.queryIntentActivities(mainIntent, 0);
+        Collections.sort(apps, new ResolveInfo.DisplayNameComparator(manager));
+
+        if (apps != null) {
+            final int count = apps.size();
+
+            if (mApplications == null) {
+                mApplications = new ArrayList<ApplicationInfo>(count);
+            }
+            mApplications.clear();
+
+            for (int i = 0; i < count; i++) {
+                ApplicationInfo application = new ApplicationInfo();
+                ResolveInfo info = apps.get(i);
+
+                application.title = info.loadLabel(manager);
+                application.setActivity(new ComponentName(
+                        info.activityInfo.applicationInfo.packageName,
+                        info.activityInfo.name),
+                        Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                application.icon = info.activityInfo.loadIcon(manager);
+
+                mApplications.add(application);
+            }
+        }
     }
+	
+	public ArrayList<ApplicationInfo> getApps(int page_no, int page_num, String fliter) {
+		int start = page_no * page_num;
+		int end = Math.min(start + page_num, mApplications.size());
+		ArrayList<ApplicationInfo> page_apps= new ArrayList<ApplicationInfo>();
+		for (int i = start; i < end; i++) {
+			page_apps.add(mApplications.get(i));
+		}
+		return page_apps;
+	}
+
 }
 
 class AppLauncherPagerAdapter extends FragmentPagerAdapter {
-		
-	private int pageSize;
 
-	public AppLauncherPagerAdapter(FragmentManager fm, int pageSize) {
+	private static final String TAG = "AppLauncherPagerAdapter";
+	private int page_size;
+	private int page_num; 
+
+	public AppLauncherPagerAdapter(FragmentManager fm,
+			ArrayList<ApplicationInfo> apps, int page_num) {
 		super(fm);
-		this.pageSize = pageSize;
+		this.page_num = page_num;
+		this.page_size = (int)Math.ceil((float)apps.size() / (page_num));
 	}
 
 	@Override
 	public Fragment getItem(int i) {
-		return AppLauncherFragment.newInstance(i);
+		AppLauncherFragment fm = AppLauncherFragment.newInstance(i, page_num);
+		return fm;
 	}
 
 	@Override
 	public int getCount() {
-		return pageSize;
+		return page_size;
 	}
+
 }
-
-
