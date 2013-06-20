@@ -46,7 +46,7 @@ public class AppLauncherFragment extends Fragment {
 		GridView body_grid = (GridView) rootView.findViewById(R.id.grid_apps);	
 		int page_no = getArguments().getInt(PAGE_NO);
 		int page_num = getArguments().getInt(PAGE_NUM);
-		applicationsAdapter = new ApplicationsAdapter(getActivity(), ((AppLauncherPageViewerTest)getActivity()).getApps(page_no,page_num,null));
+		applicationsAdapter = new ApplicationsAdapter(getActivity(), ((AppLauncherPageViewerTest)getActivity()).getApps(page_no,page_num));
 		body_grid.setAdapter(applicationsAdapter);
 		body_grid.setSelection(0);
 		body_grid.setOnItemClickListener(new ApplicationLauncher());
