@@ -11,38 +11,20 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
-            <RadioGroup
-                android:id="@+id/tickmarks"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:layout_height="wrap_content" >
 
-                <RadioButton
-                    android:id="@+id/radio0"
+                <RadioGroup
+                    android:id="@+id/tickmarks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="230dp"
-                    android:checked="true"
-                    android:clickable="false" />
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true" >
 
-                <RadioButton
-                    android:id="@+id/radio1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="false" />
-
-                <RadioButton
-                    android:id="@+id/radio2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="false" />
-
-                <RadioButton
-                    android:id="@+id/radio3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="false" />
-            </RadioGroup>
+                    
+                </RadioGroup>
+            </RelativeLayout>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"

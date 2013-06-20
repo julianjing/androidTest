@@ -28,6 +28,7 @@ public class AppLauncherPageViewerTest extends FragmentActivity {
 	AppLauncherPagerAdapter appLauncherPagerAdapter;
 	private ArrayList<ApplicationInfo> appsCache;
 	private ArrayList<ApplicationInfo> apps;
+	private AutoPageViewer appspageviewer;
 	private static final int PAGENUM = 20;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,9 @@ public class AppLauncherPageViewerTest extends FragmentActivity {
 				getApps(newText);
 				appLauncherPagerAdapter = new AppLauncherPagerAdapter(
 						getSupportFragmentManager(), apps, PAGENUM);
+				appspageviewer.setAdapter(appLauncherPagerAdapter);
 				Log.d(TAG, "onQueryTextChange:"+newText);
-				appLauncherPagerAdapter.notifyDataSetChanged();
+				//appLauncherPagerAdapter.notifyDataSetChanged();
 				return false;
 			}
 
@@ -56,7 +58,7 @@ public class AppLauncherPageViewerTest extends FragmentActivity {
 			}
 		});
 		getApps(null);
-		AutoPageViewer appspageviewer = (AutoPageViewer) findViewById(R.id.autopageviewer);
+		appspageviewer = (AutoPageViewer) findViewById(R.id.autopageviewer);
 		appLauncherPagerAdapter = new AppLauncherPagerAdapter(
 				getSupportFragmentManager(), apps, PAGENUM);
 		appspageviewer.setAdapter(appLauncherPagerAdapter);
